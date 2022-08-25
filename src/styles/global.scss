@@ -1,0 +1,52 @@
+$gray: #999999;
+$blue: #1989fa;
+$bg-color: #f6F6F6;
+$border-color: #F2F2F2;
+$theme-color: $blue;
+
+// 文字尺寸
+$font-size-s: 12px;
+$font-size-m: 14px;
+$font-size-l: 16px;
+$font-size-xl: 18px;
+$font-size-xxl: 20px;
+
+// 系统布局尺寸
+$navigation-bar-height: 50px;
+$tab-bar-height: 60px;
+
+// 层级对比
+$navigation-bar-z-index: 998;
+$tab-bar-z-index: 998;
+$popup-z-index: 999;
+
+@mixin flex-box {
+  .flex-row-box,.flex-column-box {
+    display: flex;
+    align-items: center;
+    .flex-content {
+      flex: 1;
+    }
+  }
+  .flex-row-box {
+    .flex-content {
+      width: 0;
+    }
+  }
+  .flex-column-box {
+    flex-direction: column;
+    .flex-content {
+      height: 0;
+    }
+  }
+}
+
+// 居于窗口底部
+@mixin bottom-fixed {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  background: #FFFFFF;
+  box-shadow: 0 0 30px -24px $gray;
+}

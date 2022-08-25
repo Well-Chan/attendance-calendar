@@ -1,0 +1,44 @@
+{
+  "name": "attendance-calendar",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/d3-color": "^3.1.0",
+    "d3-color": "^3.1.0",
+    "dayjs": "^1.11.3",
+    "element-plus": "^2.2.5",
+    "nanoid": "^4.0.0",
+    "sass": "^1.52.3",
+    "vant": "^4.0.0-beta.0",
+    "vconsole": "^3.14.6",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.16",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.19.0",
+    "postcss-px-to-viewport": "^1.1.1",
+    "typescript": "^4.7.4",
+    "unplugin-auto-import": "^0.8.7",
+    "unplugin-vue-components": "^0.19.9",
+    "vite": "^2.9.9",
+    "vite-plugin-style-import": "^1.4.1",
+    "vite-plugin-top-level-await": "^1.1.1",
+    "vue-tsc": "^0.34.7"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
