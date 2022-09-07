@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import { nanoid } from 'nanoid';
 import dayjs from 'dayjs';
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
@@ -34,7 +35,7 @@ export class Log {
     const currentTime = dayjs().format(dateFormat);
     this.createTime = createTime || currentTime;
     this.updateTime = updateTime || currentTime;
-  };
+  }
 
   id: string;
   date: string;
@@ -57,7 +58,7 @@ export class Log {
       text: this.text,
       createTime: this.createTime,
       updateTime: this.updateTime,
-    }
+    };
   }
 }
 
@@ -77,7 +78,7 @@ export class Item {
     const currentTime = dayjs().format(dateFormat);
     this.createTime = createTime || currentTime;
     this.updateTime = updateTime || currentTime;
-  };
+  }
 
   id: string;
   title: string;
@@ -97,7 +98,7 @@ export class Item {
   }
 
   addLog(data: LogData): void {
-    this.logList.push(new Log(data))
+    this.logList.push(new Log(data));
     this.logList.sort((a, b) => Number(a.date.split('-').join('')) - Number(b.date.split('-').join('')));
   }
 
@@ -121,7 +122,7 @@ export class Item {
       seq: this.seq,
       createTime: this.createTime,
       updateTime: this.updateTime,
-    }
+    };
   }
 }
 

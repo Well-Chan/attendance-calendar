@@ -88,7 +88,7 @@
     >
       <div class="container">
         <van-date-picker
-          :modelValue="monthPickerValue"
+          :model-value="monthPickerValue"
           title="选择月份"
           :columns-type="monthPickerType"
           :min-date="monthPickerRange.min"
@@ -335,7 +335,7 @@ const monthPickerCancel = () => {
 
 .punch-card {
   ::v-deep(.header) {
-    .van-dropdown-menu__item{
+    .van-dropdown-menu__item {
       flex: none;
       margin: 0 20px;
       &:nth-last-of-type(1) {
