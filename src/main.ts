@@ -5,8 +5,6 @@ import router from './router';
 
 import {
 	ElCalendar,
-  ElButton,
-  ElButtonGroup,
 } from 'element-plus';
 import {
   Icon,
@@ -21,6 +19,7 @@ import {
   Swipe,
   SwipeItem,
   DatePicker,
+  Slider,
   Toast,
   Dialog,
   setToastDefaultOptions,
@@ -34,8 +33,6 @@ app.use(store, key);
 app.use(router);
 
 app.use(ElCalendar);
-app.use(ElButton);
-app.use(ElButtonGroup);
 
 app.use(Icon);
 app.use(Button);
@@ -49,6 +46,7 @@ app.use(Switch);
 app.use(Swipe);
 app.use(SwipeItem);
 app.use(DatePicker);
+app.use(Slider);
 app.use(Toast);
 app.use(Dialog);
 setToastDefaultOptions('loading', {

@@ -8,12 +8,12 @@
         :label="prop.name"
         input-align="right"
         v-model="item[prop.key]"
+        :readonly="prop.key === 'color'"
       >
-        <template v-if="prop.key === 'color'" #label>
-          <div class="label">
-            <div class="text">{{prop.name}}</div>
+        <template v-if="prop.key === 'color'" #button>
+          <color-picker class="color-picker" ref="colorPickerRef" :model-value="d3Color" @confirm="dialogConfirm">
             <div class="color-block" :style="'background: ' + item[prop.key]"></div>
-          </div>
+          </color-picker>
         </template>
       </van-field>
     </div>
@@ -26,10 +26,11 @@
 </template>
 
 <script lang="ts" setup>
+import ColorPicker from '@/components/color-picker/index.vue'
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '@/store';
 import { showLoadingToast, showToast } from 'vant';
-import { reactive } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import * as d3 from 'd3-color'
 
 const editablePropList = [
@@ -56,6 +57,12 @@ const item = route.path === '/item-edit' ? reactive({ ...store.getters['data/one
   color: '',
   textColor: '',
 });
+const d3Color = computed(() => d3.color(item.color)?.rgb());
+const dialogConfirm = (value: d3.RGBColor) => {
+  if (value) {
+    item.color = value.formatHex();
+  }
+}
 
 const confirm = async (): Promise<void> => {
   const color = d3.color(item.color)?.rgb();
@@ -77,21 +84,22 @@ const confirm = async (): Promise<void> => {
     showToast('保存失败，请重试');
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
+$border-color: #CCCCCC;
+
 .item-edit {
   .prop-list {
-    .label {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+    ::v-deep(.input) {
+      .van-field__button {
+        line-height: 0.8;
+      }
       .color-block {
         margin-left: 10px;
         width: 1em;
         height: 1em;
-        border: 1px #AAAAAA solid;
+        border: 1px $border-color solid;
         border-radius: 2px;
       }
     }
@@ -111,6 +119,8 @@ const confirm = async (): Promise<void> => {
         height: 40px;
       }
     }
+  }
+  .dialog {
   }
 }
 </style>
