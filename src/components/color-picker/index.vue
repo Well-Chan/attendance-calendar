@@ -199,7 +199,7 @@ watch(pickedColor, () => {
   emit('update:modelValue', inputColor);
 })
 
-const colorPanelRef = ref();
+const colorPanelRef = ref<HTMLElement>();
 const draggingThorttle = new Thorttle(10);
 const dragging = (e: TouchEvent) => {
   const touch = e.targetTouches[0]
@@ -216,8 +216,10 @@ const dragEnd = (e: TouchEvent) => {
   changeCoordinate(touch)
 }
 const changeCoordinate = (touch: Touch): void => {
-  coordinate.x = Math.min(Math.max(touch.clientX - colorPanelRef.value.getBoundingClientRect().x, 0), 255);
-  coordinate.y = 255 - Math.min(Math.max(touch.clientY - colorPanelRef.value.getBoundingClientRect().y, 0), 255);
+  if (colorPanelRef.value) {
+    coordinate.x = Math.min(Math.max(touch.clientX - colorPanelRef.value.getBoundingClientRect().x, 0), 255);
+    coordinate.y = 255 - Math.min(Math.max(touch.clientY - colorPanelRef.value.getBoundingClientRect().y, 0), 255);
+  }
 }
 const singleValueInputFormatter = (value: string) => String(Math.min(Math.max(Number(value) || 0, 0), 255));
 const changePickedColorBySingleValueInput = () => {
@@ -338,7 +340,7 @@ $border-color: #CCCCCC;
           flex: 1;
           width: 0;
           margin-right: 10px;
-          ::v-deep(.input) {
+          :deep(.input) {
             flex: 1;
             padding: 0 5px;
             border: 1px $border-color solid;

@@ -5,10 +5,12 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Calendar: typeof import('./src/components/calendar/index.vue')['default']
     ColorPicker: typeof import('./src/components/color-picker/index.vue')['default']
     ElCalendar: typeof import('element-plus/es')['ElCalendar']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     Group: typeof import('./src/components/draggable-sort/group.vue')['default']
+    Month: typeof import('./src/components/calendar/month.vue')['default']
     NavigationBar: typeof import('./src/components/navigation-bar/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -28,6 +30,7 @@ declare module '@vue/runtime-core' {
     VanSwipe: typeof import('vant/es')['Swipe']
     VanSwipeItem: typeof import('vant/es')['SwipeItem']
     VanSwitch: typeof import('vant/es')['Switch']
+    Year: typeof import('./src/components/calendar/year.vue')['default']
   }
 }
 

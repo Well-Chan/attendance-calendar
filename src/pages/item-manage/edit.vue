@@ -91,7 +91,7 @@ $border-color: #CCCCCC;
 
 .item-edit {
   .prop-list {
-    ::v-deep(.input) {
+    :deep(.input) {
       .van-field__button {
         line-height: 0.8;
       }

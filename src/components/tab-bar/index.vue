@@ -42,6 +42,7 @@ const list = computed(() => tabBarList.map(tabBar => ({
   height: $tab-bar-height;
   .main {
     @include bottom-fixed;
+    position: relative;
     height: $tab-bar-height;
     display: flex;
     justify-content: space-evenly;

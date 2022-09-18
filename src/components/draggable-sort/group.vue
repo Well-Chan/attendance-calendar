@@ -9,7 +9,7 @@
       }"
       v-for="(item, index) in itemList"
       :key="index"
-      :ref="setItemRef"
+      ref="itemRefList"
       @touchstart="dragStart($event, index)"
       @touchmove="dragging"
       @touchend="dragEnd"
@@ -32,6 +32,7 @@
 <script lang="ts" setup>
 import { onBeforeUpdate, reactive, Ref, ref, watch } from 'vue';
 import _ from 'lodash';
+import { getHtmlElementOffset } from '@/utils/common'
 
 interface Props {
   list: Array<any>,
@@ -50,11 +51,7 @@ watch(() => props.list, (val) => {
   deep: true,
 })
 
-const itemRefs: Ref<Array<any>> = ref(reactive([]));
-onBeforeUpdate(() => itemRefs.value = reactive([]))
-const setItemRef = (el: any) => {
-  itemRefs.value.push(el)
-};
+const itemRefList = ref<Array<HTMLElement>>([]);
 
 interface Emit {
   (e: 'changeSeq', list: Array<any>): void,
@@ -65,7 +62,10 @@ const emit = defineEmits<Emit>()
 
 const isDragging = ref(false);
 const draggedIndex = ref(0);
-const draggedItem = reactive({
+const draggedItem = reactive<{
+  el: HTMLElement | null,
+  data: any,
+}>({
   el: null,
   data: null,
 });
@@ -76,7 +76,7 @@ const dragStart = (e: TouchEvent, index: number) => {
     return;
   }
   draggedIndex.value = index;
-  draggedItem.el = itemRefs.value[index];
+  draggedItem.el = itemRefList.value[index];
   draggedItem.data = itemList.value[index];
   isDragging.value = true;
   updateDraggingCellStyle(e);
@@ -90,8 +90,8 @@ const dragEnd = () => {
   emit('update:list', itemList.value);
 }
 const getCenterPointList = () => {
-  return itemRefs.value.map(el => {
-    const offset = getElementOffset(el);
+  return itemRefList.value.map(el => {
+    const offset = getHtmlElementOffset(el);
     return {
       top: offset.top + el.clientTop + el.clientHeight / 2,
       left: offset.left + el.clientLeft + el.clientWidth / 2,
@@ -138,14 +138,14 @@ const dragging = (e: TouchEvent) => {
     }
   }
 };
-const draggingCell = ref(null);
-const draggableSortGroup = ref(null);
+const draggingCell = ref();
+const draggableSortGroup = ref();
 const updateDraggingCellStyle = (e: TouchEvent) => {
   const top = e.targetTouches[0].pageY;
   if (top > document.body.clientHeight - ((draggingCell.value as any)?.clientHeight || 0) / 2) {
     return;
   }
-  draggingCellStyle.value = `top: ${e.targetTouches[0].pageY - getElementOffset(draggableSortGroup.value).top}px; width: ${(draggedItem.el as any)?.clientWidth}px;`;
+  draggingCellStyle.value = `top: ${e.targetTouches[0].pageY - getHtmlElementOffset(draggableSortGroup.value).top}px; width: ${(draggedItem.el as any)?.clientWidth}px;`;
 }
 
 const throttle = (() => {
@@ -162,18 +162,6 @@ const throttle = (() => {
   }
 })();
 
-const getElementOffset = (el: any): { top: number, left: number} => {
-  const offset = {
-    top: 0,
-    left: 0,
-  };
-  while (el) {
-    offset.top += el.offsetTop;
-    offset.left += el.offsetLeft;
-    el = el.offsetParent as any;
-  }
-  return offset;
-}
 </script>
 
 <style lang="scss" scoped>
