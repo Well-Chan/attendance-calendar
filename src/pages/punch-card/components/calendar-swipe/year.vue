@@ -129,16 +129,6 @@ defineExpose({
 
 <style lang="scss" scoped>
 .year-calendar-swipe {
-  .date-text {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-bottom: 1px $border-color solid;
-    .icon {
-      display: inline-block;
-      transform: scaleX(1.4) scale(0.8);
-    }
-  }
   :deep(.year-calendar) {
     .date-cell {
       .content {
@@ -161,12 +151,6 @@ defineExpose({
           }
         }
       }
-    }
-  }
-  :deep(.van-popup) {
-    overflow: hidden;
-    .container {
-      margin-bottom: -2px;
     }
   }
 }

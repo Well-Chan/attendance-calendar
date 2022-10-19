@@ -26,23 +26,53 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import type { PickerOption, DatePickerColumnType } from 'vant';
+import dayjs from 'dayjs';
 
 
-const selectedDateText = computed(() => dayjs(selectedDate.value.value).format('YYYY 年'))
 
-const type = ref<'year' | 'month'>('year');
+interface Props {
+  modelValue: Date,
+  type: 'year' | 'month',
+}
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: () => new Date,
+  type: 'month',
+});
+
+const value = ref(new Date());
+watch(() => props.modelValue, (val) => {
+  const date1 = dayjs(val).format('YYYY-MM-DD');
+  const date2 = dayjs(value.value).format('YYYY-MM-DD');
+  if (date1 !== date2) {
+    value.value = dayjs(val).toDate();
+  }
+})
+const selectedDateText = computed(() => {
+  if (props.type === 'year') {
+    return dayjs(value.value).format('YYYY 年');
+  }
+  else if (props.type === 'month') {
+    return dayjs(value.value).format('YYYY 年 M 月');
+  }
+})
 
 const pickerShow = ref<boolean>(false);
-const pickerValue = ref<Array<string>>([]);
+const pickerValue = computed(() => {
+  if (props.type === 'year') {
+    return [String(value.value.getFullYear())];
+  }
+  else if (props.type === 'month') {
+    return [String(value.value.getFullYear()), String(value.value.getMonth() + 1)];
+  }
+  return [];
+});
 const openPicker = () => {
-  const today = new Date();
-  pickerValue.value = [String(today.getFullYear()), String(today.getMonth() + 1)];
   pickerShow.value = true;
 }
 const pickerType = computed(() => {
-  if (type.value === 'year') {
+  if (props.type === 'year') {
     return ['year'] as Array<DatePickerColumnType>;
   }
   else {
@@ -65,16 +95,22 @@ const pickerFormatter = (type: string, option: PickerOption): PickerOption => {
   }
   return option;
 };
+
+interface Emit {
+  (e: 'update:modelValue', value: Date): void,
+}
+const emit = defineEmits<Emit>();
+
 const pickerConfirm = ({ selectedValues: [year, month] }: { selectedValues: Array<string> }): void => {
-  let newDate;
-  if (type.value === 'year') {
+  let newDate = new Date();
+  if (props.type === 'year') {
     newDate = new Date(Number(year), 1, 1);
   }
-  else if (type.value === 'month') {
+  else if (props.type === 'month') {
     newDate = new Date(Number(year), Number(month) - 1);
   }
-  changeDate(newDate, true);
   pickerShow.value = false;
+  emit('update:modelValue', newDate);
 }
 const pickerCancel = () => {
   pickerShow.value = false;
@@ -83,5 +119,23 @@ const pickerCancel = () => {
 </script>
 
 <style lang="scss" scoped>
+.date-picker {
+  .date-text {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-bottom: 1px $border-color solid;
+    .icon {
+      display: inline-block;
+      transform: scaleX(1.4) scale(0.8);
+    }
+  }
+  :deep(.van-popup) {
+    overflow: hidden;
+    .container {
+      margin-bottom: -2px;
+    }
+  }
+}
 
 </style>

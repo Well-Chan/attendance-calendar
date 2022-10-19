@@ -18,6 +18,7 @@
         </van-dropdown-item>
       </van-dropdown-menu>
     </div>
+    <date-picker v-model="currentDay" :type="currentMode" />
     <div class="tab-bars">
       <div
         class="bar"
@@ -58,6 +59,7 @@ import { ref, computed, reactive, onMounted, Ref } from 'vue';
 import { useStore } from '@/store';
 import { useRouter } from 'vue-router';
 import { Item } from '@/store/data/define';
+import DatePicker from './components/date-picker/index.vue'
 import YearCalendarSwipe from './components/calendar-swipe/year.vue'
 import MonthCalendarSwipe from './components/calendar-swipe/month.vue'
 import dayjs from 'dayjs';
@@ -169,7 +171,7 @@ const barList = [{
   key: 'month',
   onClick: toggleToMonth,
 }]
-const currentBarIndex = ref(0);
+const currentBarIndex = ref(1);
 
 
 onMounted(() => {

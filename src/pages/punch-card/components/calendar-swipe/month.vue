@@ -35,6 +35,7 @@
       :confirm-button-color="selectedDate.punched ? 'var(--van-danger-color)' : 'var(--van-primary-color)'"
       :confirm-button-disabled="!props.data"
       closeOnClickOverlay
+      teleport="body"
       @confirm="dialogConfirm"
     >
       <div class="container">
@@ -261,58 +262,44 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-.date-text {
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-bottom: 1px $border-color solid;
-  .icon {
-    display: inline-block;
-    transform: scaleX(1.4) scale(0.8);
-  }
-}
-:deep(.month-calendar) {
-  min-height: 340px;
-  .date-cell-list {
-    .date-cell {
-      .content {
-        min-height: 0;
-        padding: 0;
-        .cell {
-          position: relative;
-          padding-top: 100%;
-          border-radius: 50%;
-          &.punched {
-            color: var(--item-text-color);
-            background: var(--item-color);
-          }
-          .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+.month-calendar-swipe {
+  :deep(.month-calendar) {
+    min-height: 340px;
+    .date-cell-list {
+      .date-cell {
+        .content {
+          min-height: 0;
+          padding: 0;
+          .cell {
+            position: relative;
+            padding-top: 100%;
+            border-radius: 50%;
+            &.punched {
+              color: var(--item-text-color);
+              background: var(--item-color);
+            }
+            .container {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
           }
         }
-      }
-    }    
-  }
-}
-:deep(.dialog) {
-  .van-button {
-    letter-spacing: 1px;
-  }
-  .container {
-    padding: 10px 20px 20px;
-    text-align: left;
-    .input {
-      padding: 0;
+      }    
     }
   }
-}
-:deep(.van-popup) {
-  overflow: hidden;
-  .container {
-    margin-bottom: -2px;
+  :deep(.dialog) {
+    .van-button {
+      letter-spacing: 1px;
+    }
+    .container {
+      padding: 10px 20px 20px;
+      text-align: left;
+      .input {
+        padding: 0;
+      }
+    }
   }
 }
 </style>
