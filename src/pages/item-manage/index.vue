@@ -128,10 +128,5 @@ const deleteItem = async (item: Item) => {
       }
     }
   }
-  // &.sorting {
-  //   >:not(.item-list) {
-  //     opacity: 0.3;
-  //   }
-  // }
 }
 </style>
