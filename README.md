@@ -1,11 +1,12 @@
-# Introduction
+# 介绍
 
-Attendance-calendar, a web-app project. You can use an app-build tool just like Cordova to disguise the dist (gotten by building this project) as an app. And then, you can persist in doing something you want and punch for it on this app everyday. So do that you can preview your punched log by a calendar.
+考勤日历，一个web项目，构建之后得到web应用程序。然后也可以再使用app构建工具（比如Cordova）来构建成app。
 
-# Thanks for
+当你需要坚持做某件事的时候，你可以每天使用这个app进行打卡记录。长此以往，就可以以月份或者年份的形式查看打卡的频率。
+当然，本系统还支持多项目打卡，你可以创建很多个打卡项目，并自定义展示的颜色，或者调整项目优先级，然后就可以对每个项目进行跟进打卡。
 
-Vue<br/>
-Vant<br/>
-Element-plus<br/>
-nanoid<br/>
-d3-color
+目前没有相应后端进行对接，只是使用了前端缓存来存储数据，所以目前多设备的数据迁移和同步只能依靠项目中的数据导出和导入功能。
+
+# 项目链接
+
+https://well-chan.github.io/attendance-calendar/
